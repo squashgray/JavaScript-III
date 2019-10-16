@@ -21,7 +21,7 @@ function favColor(color) {
     return color;
 }
 
-favColor('Green');
+favColor("Green");
 
 // Principle 2
 
@@ -40,8 +40,26 @@ myName.sayHi()
 
 // code example for New Binding
 
+let Shirt = function(size, brand, color){
+    this.size = size,
+    this.brand = brand,
+    this.color = color
+}
 
+let newShirt = new Shirt('XL', 'Vans','Blue');
+
+console.log(newShirt);
 
 // Principle 4
 
 // code example for Explicit Binding
+
+let four = function(){
+    console.log(`this is the this ${this.name}.`)
+}
+
+let explict = {
+    name: 'Hi, I am this!',
+};
+
+four.call(explict); 
