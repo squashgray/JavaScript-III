@@ -8,26 +8,49 @@
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
   
-function Humanoid(attributes){
+
+function GameObject(attributes) {
   this.createdAt = attributes.createdAt,
   this.name = attributes.name,
-  this.dimensions = attributes.dimensions,
-  this.healthPoints = attributes.healthPoints,
-  this.team = attributes.team,
-  this.weapons = attributes.weapons,
-  this.language = attributes.language
+  this.dimensions = attributes.dimensions
 }
 
-Humanoid.prototype.destroy = function() {
+GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`;
 };
+
+
+function CharacterStats(characterStatsAttributes){
+  GameObject.call(this, characterStatsAttributes),
+  this.healthPoints = characterStatsAttributes.healthPoints
+  
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype); // new binding used to inherit // 
+
+
+CharacterStats.prototype.takeDamage = function() {
+  return ` ${this.name} took damage. `;
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype); 
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language} .`;
 };
 
-Humanoid.prototype.takeDamage = function() {
-  return ` ${this.name} took damage. `;
+function Humanoid(humanoidAttributes){
+  CharacterStats.call(this, humanoidAttributes); 
+  this.team = humanoidAttributes.team,
+  this.weapons = humanoidAttributes.weapons,
+  this.language = humanoidAttributes.language
+
+}
+
+
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language} .`;
 };
 
 
