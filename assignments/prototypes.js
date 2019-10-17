@@ -10,7 +10,7 @@
   
 
 function GameObject(attributes) {
-  this.createdAt = attributes.createdAt,
+  this.createdAt = attributes.createdAt,   //parent object//
   this.name = attributes.name,
   this.dimensions = attributes.dimensions
 }
@@ -19,35 +19,28 @@ GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`;
 };
 
-
-function CharacterStats(characterStatsAttributes){
-  GameObject.call(this, characterStatsAttributes),
+function CharacterStats(characterStatsAttributes){    
+  GameObject.call(this, characterStatsAttributes),    //binds to parent //
   this.healthPoints = characterStatsAttributes.healthPoints
   
 };
 
-CharacterStats.prototype = Object.create(GameObject.prototype); // new binding used to inherit // 
+CharacterStats.prototype = Object.create(GameObject.prototype); // new binding used to inherit from parent // 
 
 
 CharacterStats.prototype.takeDamage = function() {
   return ` ${this.name} took damage. `;
 };
 
-Humanoid.prototype = Object.create(CharacterStats.prototype); 
-
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language} .`;
-};
-
 function Humanoid(humanoidAttributes){
-  CharacterStats.call(this, humanoidAttributes); 
+  CharacterStats.call(this, humanoidAttributes);  // binds to child // 
   this.team = humanoidAttributes.team,
   this.weapons = humanoidAttributes.weapons,
   this.language = humanoidAttributes.language
 
 }
 
-
+Humanoid.prototype = Object.create(CharacterStats.prototype);  //inherits from child //
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language} .`;
